@@ -13,5 +13,6 @@ public class BiliBiliApp {
     public static void main(String[] args) {
         ApplicationContext app = SpringApplication.run(BiliBiliApp.class, args);
 
+
     }
 }
