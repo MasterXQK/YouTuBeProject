@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * @author Morgan
  * @create 2022-10-15-0:19
@@ -19,8 +21,13 @@ public class DemoApi {
 
     // get方法
     @GetMapping("/queryNameById")
-    public String getPersonNameById(Long id) {
+    public Map<String, Object> getPersonNameById(Long id) {
         return demoService.getPersonNameById(id);
+    }
+
+    @GetMapping("/queryCreateTimeById")
+    public String queryCreateTimeById(Long id) {
+        return demoService.getPersonCreateTimeById(id);
     }
 
 

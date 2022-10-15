@@ -5,8 +5,12 @@
 
 <mapper namespace="com.Morgan.bilibili.dao.DemoDao">
 
-    <select id="queryNameById" parameterType="java.lang.Long" resultType="java.lang.String">
-        select t.name from t_demo as t where t.id = #{userID}
+    <select id="queryNameById" parameterType="java.lang.Long" resultType="java.util.Map">
+        select t.* from t_demo as t where t.id = #{userID}
+    </select>
+    
+    <select id="queryCreateTimeById" parameterType="java.lang.Long" resultType="java.lang.String">
+        select create_time from t_demo where id = #{userID}
     </select>
 
 </mapper>

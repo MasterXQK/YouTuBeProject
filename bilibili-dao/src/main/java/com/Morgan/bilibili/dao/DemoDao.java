@@ -2,6 +2,8 @@ package com.Morgan.bilibili.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Map;
+
 /**
  * @author Morgan
  * @create 2022-10-14-23:52
@@ -9,5 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DemoDao {
 
-    public String queryNameById(Long userID);
+    public Map<String, Object> queryNameById(Long userID);
+
+    public String queryCreateTimeById(Long userID);
 }
