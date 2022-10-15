@@ -76,7 +76,7 @@ public class RESTFulApi {
     }
 
     // 测试用
-    @GetMapping("/getAllData")
+    @GetMapping("/data/all")
     public Map<Integer, Map<String, Object>> getAllData() {
         return dataMap;
     }
