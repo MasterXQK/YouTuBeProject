@@ -6,7 +6,7 @@
 <mapper namespace="com.Morgan.bilibili.service.DemoDao">
 
     <select id="queryNameById" parameterType="java.lang.Long" resultType="java.util.Map">
-        select t.* from t_demo as t where t.id = #{userID}
+        select phone from t_user where id = #{userID}
     </select>
     
     <select id="queryCreateTimeById" parameterType="java.lang.Long" resultType="java.lang.String">
