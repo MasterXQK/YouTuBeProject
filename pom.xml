@@ -52,6 +52,13 @@
             <artifactId>commons-codec</artifactId>
             <version>1.15</version>
         </dependency>
+
+        <!--阿里巴fastJson依赖包-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.78</version>
+        </dependency>
     </dependencies>
 
     <modules>
