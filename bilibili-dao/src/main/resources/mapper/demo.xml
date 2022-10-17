@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.Morgan.bilibili.service.DemoDao">
+<mapper namespace="com.Morgan.bilibili.dao.DemoDao">
 
     <select id="queryNameById" parameterType="java.lang.Long" resultType="java.util.Map">
         select phone from t_user where id = #{userID}

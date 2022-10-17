@@ -1,5 +1,6 @@
 package com.Morgan.bilibili.domain;
 
+import com.alibaba.fastjson.JSON;
 import com.sun.org.apache.xml.internal.security.utils.I18n;
 
 /**
@@ -16,6 +17,13 @@ public class JsonResponse<T> {
             this.EngMsg = EngMsg;
             this.CnMsg = CnMsg;
         }
+
+        @Override
+        public String toString() {
+            return "I18nMsg{" +
+                    "EngMsg=" + this.EngMsg + ", CnMsg=" + this.CnMsg +
+                    '}';
+        }
     }
 
     private String code;
@@ -27,11 +35,12 @@ public class JsonResponse<T> {
         this.data = data;
         this.code = "0";
         this.i18nMsg = new I18nMsg("success", "成功");
+//        this.Message = JSON.toJSONString(this.i18nMsg);
     }
 
-    public JsonResponse(String code, I18nMsg i18nMsg) {
+    public JsonResponse(String code, String cnMsg, String engMsg) {
         this.code = code;
-        this.i18nMsg = i18nMsg;
+        this.i18nMsg = new I18nMsg(engMsg, cnMsg);
     }
 
     // -------------------------------------------------- response func ------------------------------------------------
@@ -47,12 +56,12 @@ public class JsonResponse<T> {
 
     // 返回失败
     public static JsonResponse<String> fail() {
-        return new JsonResponse<>("1", new I18nMsg("fail", "失败"));
+        return new JsonResponse<>("1", "失败", "fail");
     }
 
     // 失败原因可以写进i18n
     public static JsonResponse<String> fail(String EngMsg, String CnMsg) {
-        return new JsonResponse<>("1", new I18nMsg(EngMsg, CnMsg));
+        return new JsonResponse<>("1", CnMsg, EngMsg);
     }
 
 
@@ -61,6 +70,7 @@ public class JsonResponse<T> {
     public String getCode() {
         return code;
     }
+
 
     public void setCode(String code) {
         this.code = code;
@@ -71,12 +81,6 @@ public class JsonResponse<T> {
         return i18nMsg.toString();
     }
 
-    @Override
-    public String toString() {
-        return "JsonResponse{" +
-                "EngMsg=" + i18nMsg.EngMsg + ", CnMsg=" + i18nMsg.CnMsg +
-                '}';
-    }
 
     public void setI18nMsg(I18nMsg i18nMsg) {
         this.i18nMsg = i18nMsg;

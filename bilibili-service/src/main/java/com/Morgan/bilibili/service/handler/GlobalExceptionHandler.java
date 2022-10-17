@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
  * @author Morgan
@@ -23,11 +24,14 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public JsonResponse<String> CommonExceptionHandler(HttpServletRequest r, Exception e) {
         String errMsg = e.getMessage();
+
         if (e instanceof ConditionException) {
             String errCode = ((ConditionException) e).getCode();
-            return new JsonResponse<>(errCode, new JsonResponse.I18nMsg(errMsg, "条件异常"));
+            String errMsgCn = ((ConditionException) e).getErrMsgCn();
+            String errMsgEng = ((ConditionException) e).getErrMsgEng();
+            return new JsonResponse<>(errCode, errMsgCn, errMsgEng);
         } else {
-            return new JsonResponse<>("500", new JsonResponse.I18nMsg(errMsg, errMsg));
+            return new JsonResponse<>("500", "运行异常", errMsg);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.Morgan.bilibili.service;
+package com.Morgan.bilibili.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
