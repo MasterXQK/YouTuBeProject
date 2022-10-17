@@ -9,10 +9,10 @@ import com.sun.org.apache.xml.internal.security.utils.I18n;
 public class JsonResponse<T> {
 
     // internationalization response message
-    static class I18nMsg {
+    public static class I18nMsg {
         String CnMsg;
         String EngMsg;
-        I18nMsg(String EngMsg, String CnMsg) {
+        public I18nMsg(String EngMsg, String CnMsg) {
             this.EngMsg = EngMsg;
             this.CnMsg = CnMsg;
         }
@@ -23,13 +23,13 @@ public class JsonResponse<T> {
     private I18nMsg i18nMsg;
 
     // --------------------------------------------------  construct ---------------------------------------------------
-    JsonResponse(T data) {
+    public JsonResponse(T data) {
         this.data = data;
         this.code = "0";
         this.i18nMsg = new I18nMsg("success", "成功");
     }
 
-    JsonResponse(String code, I18nMsg i18nMsg) {
+    public JsonResponse(String code, I18nMsg i18nMsg) {
         this.code = code;
         this.i18nMsg = i18nMsg;
     }
