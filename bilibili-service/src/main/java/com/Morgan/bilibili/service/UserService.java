@@ -130,4 +130,23 @@ public class UserService {
     }
 
 
+    public void updateUser(User user) throws Exception {
+        Long id = user.getId();
+        User dbUser = userDao.getUserById(id);
+        if (dbUser == null) {
+            throw new ConditionException("400", "用户不存在！", "User does not exist!");
+        }
+        if (StringUtils.isNullOrEmpty(dbUser.getPassword())) {
+            String originPwd = RSAUtil.decrypt(user.getPassword());
+            String md5Pwd = MD5Util.sign(originPwd, dbUser.getSalt(), "UTF-8");
+            user.setPassword(md5Pwd);
+        }
+        user.setUpdateTime(new Date());
+        userDao.updateUser(user);
+    }
+
+    public void updateUserInfo(UserInfo userInfo) {
+        userInfo.setUpdateTime(new Date());
+        userDao.updateUserInfo(userInfo);
+    }
 }
