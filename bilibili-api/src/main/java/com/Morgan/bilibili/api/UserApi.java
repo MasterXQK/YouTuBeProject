@@ -44,13 +44,16 @@ public class UserApi {
     }
 
     // 用户登录 鉴权
+    // 产生token 并且返回
     @PostMapping("/user-tokens")
     public JsonResponse<String> login(@RequestBody User user) throws Exception {
         String token = userService.login(user);
+        // 根据userID生成token 并且返回
+        // 下次用户带着我们服务器生成的token来登录 就可以免密码
         return JsonResponse.success(token);
     }
 
-    // 用户update token拿到userID再去做更改逻辑
+    // 用户update 解析token拿到userID再去做更改逻辑
     // 通过 phone + password进行登录 并且产生token
     @PutMapping("/users")
     public JsonResponse<String> updateUser(@RequestBody User user) throws Exception {

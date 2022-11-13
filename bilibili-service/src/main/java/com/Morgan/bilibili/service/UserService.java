@@ -121,6 +121,10 @@ public class UserService {
         return user;
     }
 
+    public User getUserById(Long userId) {
+        return userDao.getUserById(userId);
+    }
+
     // --------------------------------------------------- utils -------------------------------------------------------
     /*
    TODO redis保存phone number加速查询

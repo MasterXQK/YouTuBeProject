@@ -110,19 +110,19 @@ CREATE TABLE `t_user` (
 -- Table structure for t_user_following
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_following`;
-CREATE TABLE `t_user_following` (
-                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
-                                    `userId` bigint DEFAULT NULL COMMENT '用户id',
-                                    `followingId` int DEFAULT NULL COMMENT '关注用户id',
-                                    `groupId` int DEFAULT NULL COMMENT '关注分组id',
-                                    `createTime` datetime DEFAULT NULL COMMENT '创建时间',
-                                    PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户关注表';
+DROP TABLE IF EXISTS `t_user_info`;
 
 -- ----------------------------
 -- Table structure for t_user_info
 -- ----------------------------
-DROP TABLE IF EXISTS `t_user_info`;
+CREATE TABLE `t_user_following` (
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                                    `userId` bigint DEFAULT NULL COMMENT '用户id',
+                                    `followingId` int DEFAULT NULL COMMENT '关注用户id',
+                                    `groupId` int DEFAULT NULL COMMENT '关注分组id', # == t_following_group.id, 一对多 一个t_following_group 对多个t_user_following
+                                    `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+                                    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户关注表';
 CREATE TABLE `t_user_info` (
                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
                                `userId` bigint DEFAULT NULL COMMENT '用户id',
