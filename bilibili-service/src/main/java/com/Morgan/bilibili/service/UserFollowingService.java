@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -68,17 +69,19 @@ public class UserFollowingService {
 
     // key -> groupId
     // value -> User
-    public HashMap<Long, User> getUserFollowing(Long userId) {
+    public HashMap<Long, List<User>> getUserFollowing(Long userId) {
         // 所有该userId相关的t_user_following数据
         List<UserFollowing> userFollowings = userFollowingDao.getFollowingUserIdListByUserId(userId);
-        HashMap<Long, User> groupMap = new HashMap<>();
+        HashMap<Long, List<User>> groupMap = new HashMap<>();
         // 根据不同的groupId分组返回
         for (UserFollowing uf : userFollowings) {
             long groupId = uf.getGroupId();
             long followingId = uf.getFollowingId();
             // 用关注者的id 获取该User及其相关附属信息
             User followingUserInfo = userService.getUserInfo(followingId);
-            groupMap.putIfAbsent(groupId, followingUserInfo);
+            if (!groupMap.containsKey(groupId))
+                groupMap.put(groupId, new ArrayList<>());
+            groupMap.get(groupId).add(followingUserInfo);
         }
         return groupMap;
     }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -29,8 +30,8 @@ public class UserFollowingApi {
 
     // 按分组获得用户全部关注列表
     @GetMapping("/UserFollowings/{userId}")
-    public JsonResponse<HashMap<Long, User>> getUserFollowing(@PathVariable Long userId) {
-        HashMap<Long, User> followingMap = userFollowingService.getUserFollowing(userId);
+    public JsonResponse<HashMap<Long, List<User>>> getUserFollowing(@PathVariable Long userId) {
+        HashMap<Long, List<User>> followingMap = userFollowingService.getUserFollowing(userId);
         return new JsonResponse<>(followingMap);
     }
 }
