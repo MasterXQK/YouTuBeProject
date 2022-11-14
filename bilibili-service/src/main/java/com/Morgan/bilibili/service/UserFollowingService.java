@@ -61,5 +61,4 @@ public class UserFollowingService {
         userFollowing.setCreateTime(new Date()); // 把创建时间补上
         userFollowingDao.addUserFollowing(userFollowing);
     }
-
 }

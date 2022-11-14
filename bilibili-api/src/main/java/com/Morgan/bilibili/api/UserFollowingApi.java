@@ -17,9 +17,12 @@ public class UserFollowingApi {
     @Autowired
     private UserFollowingService userFollowingService;
 
+
+
     @PostMapping("/addUserFollowing")
     public JsonResponse<String> addUserFollowing(@RequestBody UserFollowing userFollowing) {
         userFollowingService.addUserFollowing(userFollowing);
         return JsonResponse.success();
     }
 }
+
