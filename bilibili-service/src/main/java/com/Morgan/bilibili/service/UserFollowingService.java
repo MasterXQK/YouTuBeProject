@@ -85,4 +85,14 @@ public class UserFollowingService {
         }
         return groupMap;
     }
+
+    public List<User> getFans(Long userId) {
+        // 根据followingId == userId找到所有的userFollowings数据
+        List<UserFollowing> userFollowings = userFollowingDao.getUserFollowingByFollowingId(userId);
+        // 此时userId就是粉丝的User.id
+        List<Long> userIdList = new ArrayList<>();
+        for (UserFollowing uf : userFollowings) userIdList.add(uf.getUserId());
+        List<User> fans = userService.getUserInfoByIdList(userIdList);
+        return fans;
+    }
 }

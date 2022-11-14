@@ -37,6 +37,15 @@
         where
             userId = #{userId}
     </select>
+    <select id="getUserFollowingByFollowingId" parameterType="java.lang.Long" resultType="com.Morgan.bilibili.domain.UserFollowing">
+        select
+            *
+        from
+            t_user_following
+        where
+            followingId = #{followingId}
+    </select>
+
 
 
 </mapper>

@@ -34,5 +34,11 @@ public class UserFollowingApi {
         HashMap<Long, List<User>> followingMap = userFollowingService.getUserFollowing(userId);
         return new JsonResponse<>(followingMap);
     }
+
+    @GetMapping("/fans/{userId}")
+    public JsonResponse<List<User>> getFans(@PathVariable Long userId) {
+        List<User> fans = userFollowingService.getFans(userId);
+        return new JsonResponse<>(fans);
+    }
 }
 

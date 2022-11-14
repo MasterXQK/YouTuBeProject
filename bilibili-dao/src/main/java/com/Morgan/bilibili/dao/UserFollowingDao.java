@@ -18,5 +18,7 @@ public interface UserFollowingDao {
     void deleteUserFollowing(@Param("userId") Long userId, @Param("followingId") Long followingId);
 
     List<UserFollowing> getFollowingUserIdListByUserId(Long userId);
+
+    List<UserFollowing> getUserFollowingByFollowingId(Long userId);
 }
 

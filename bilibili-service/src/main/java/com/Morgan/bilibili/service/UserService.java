@@ -12,7 +12,9 @@ import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Morgan
@@ -152,5 +154,13 @@ public class UserService {
     public void updateUserInfo(UserInfo userInfo) {
         userInfo.setUpdateTime(new Date());
         userDao.updateUserInfo(userInfo);
+    }
+
+    public List<User> getUserInfoByIdList(List<Long> userIdList) {
+        List<User> users = new ArrayList<>();
+        for (Long id : userIdList) {
+            users.add(getUserInfo(id));
+        }
+        return users;
     }
 }
