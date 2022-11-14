@@ -2,6 +2,7 @@ package com.Morgan.bilibili.service;
 
 import com.Morgan.bilibili.dao.UserFollowingDao;
 import com.Morgan.bilibili.domain.FollowingGroup;
+import com.Morgan.bilibili.domain.User;
 import com.Morgan.bilibili.domain.UserFollowing;
 import com.Morgan.bilibili.domain.constant.UserFollowingConstant;
 import com.Morgan.bilibili.domain.exception.ConditionException;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Morgan
@@ -26,6 +29,7 @@ public class UserFollowingService {
 
     @Autowired
     FollowingGroupService followingGroupService;
+
 
     @Transactional
     public void addUserFollowing(UserFollowing userFollowing) {
@@ -60,5 +64,22 @@ public class UserFollowingService {
         userFollowingDao.deleteUserFollowing(userFollowing.getUserId(), userFollowing.getFollowingId());
         userFollowing.setCreateTime(new Date()); // 把创建时间补上
         userFollowingDao.addUserFollowing(userFollowing);
+    }
+
+    // key -> groupId
+    // value -> User
+    public HashMap<Long, User> getUserFollowing(Long userId) {
+        // 所有该userId相关的t_user_following数据
+        List<UserFollowing> userFollowings = userFollowingDao.getFollowingUserIdListByUserId(userId);
+        HashMap<Long, User> groupMap = new HashMap<>();
+        // 根据不同的groupId分组返回
+        for (UserFollowing uf : userFollowings) {
+            long groupId = uf.getGroupId();
+            long followingId = uf.getFollowingId();
+            // 用关注者的id 获取该User及其相关附属信息
+            User followingUserInfo = userService.getUserInfo(followingId);
+            groupMap.putIfAbsent(groupId, followingUserInfo);
+        }
+        return groupMap;
     }
 }
