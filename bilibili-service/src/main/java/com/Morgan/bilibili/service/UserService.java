@@ -1,6 +1,7 @@
 package com.Morgan.bilibili.service;
 
 import com.Morgan.bilibili.dao.UserDao;
+import com.Morgan.bilibili.domain.PageResult;
 import com.Morgan.bilibili.domain.User;
 import com.Morgan.bilibili.domain.UserInfo;
 import com.Morgan.bilibili.domain.constant.UserConstant;
@@ -8,6 +9,7 @@ import com.Morgan.bilibili.domain.exception.ConditionException;
 import com.Morgan.bilibili.service.util.MD5Util;
 import com.Morgan.bilibili.service.util.RSAUtil;
 import com.Morgan.bilibili.service.util.TokenUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -162,5 +164,26 @@ public class UserService {
             users.add(getUserInfo(id));
         }
         return users;
+    }
+
+    public PageResult<UserInfo> PageListUserInfos(JSONObject params) {
+        Integer number = params.getInteger("number");
+        Integer size = params.getInteger("size");
+        String nick = params.getString("nick");
+        if (nick == null || nick.equals("")) {
+            throw new ConditionException("400", "昵称不能为空！", "Nick cannot be empty!");
+        }
+
+        params.put("start", (number - 1) * size);
+        params.put("limit", size);
+        params.put("nick", "%" + nick + "%"); // 加上模糊查询的%
+
+        System.out.println(params);
+        Integer total = userDao.PageCountUserInfos(params); // 总数
+        List<UserInfo> userInfoList = new ArrayList<>(); // 初始化
+        if (total > 0) {
+            userInfoList = userDao.PageListUserInfos(params); // 分页查询
+        }
+        return new PageResult<>(total, userInfoList);
     }
 }

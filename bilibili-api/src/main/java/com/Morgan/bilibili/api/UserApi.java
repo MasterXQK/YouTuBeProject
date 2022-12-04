@@ -1,13 +1,15 @@
 package com.Morgan.bilibili.api;
 
 import com.Morgan.bilibili.api.support.UserSupport;
-import com.Morgan.bilibili.domain.JsonResponse;
-import com.Morgan.bilibili.domain.User;
-import com.Morgan.bilibili.domain.UserInfo;
+import com.Morgan.bilibili.domain.*;
+import com.Morgan.bilibili.service.UserFollowingService;
 import com.Morgan.bilibili.service.UserService;
 import com.Morgan.bilibili.service.util.RSAUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Morgan
@@ -20,6 +22,11 @@ public class UserApi {
 
     @Autowired
     private UserSupport userSupport;
+
+    // 注入UserFollowingService
+    @Autowired
+    private UserFollowingService userFollowingService;
+
 
     // 根据header内的token 获得用户userId 从而获得用户具体信息
     @GetMapping("/users")
@@ -77,4 +84,24 @@ public class UserApi {
         userService.updateUserInfo(userInfo);
         return JsonResponse.success();
     }
+
+    @GetMapping("/user-infos")
+    public JsonResponse<PageResult<UserInfo>> PageListUserInfos(@RequestParam Integer number, @RequestParam Integer size,
+                                                                @RequestParam String nick) {
+        Long userId = userSupport.getCurrentUserId();
+        JSONObject params = new JSONObject();
+        params.put("userId", userId);
+        params.put("number", number);
+        params.put("size", size);
+        params.put("nick", nick);
+        PageResult<UserInfo> result = userService.PageListUserInfos(params);
+        // 只是得到了所有模糊查询nick的用户信息 还要判断是否为该uerId的关注者
+        if (result.getTotal() > 0) {
+            List<UserInfo> checkedUserInfo = userFollowingService.checkFollowingStatus(userId, result);
+            result.setList(checkedUserInfo);
+        }
+        return new JsonResponse<>(result);
+    }
 }
+
+

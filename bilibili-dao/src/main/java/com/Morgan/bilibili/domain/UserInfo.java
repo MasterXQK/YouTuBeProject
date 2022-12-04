@@ -15,7 +15,17 @@ public class UserInfo {
     private String birth;
     private Date createTime;
     private Date updateTime;
+
+    private Boolean Followed;
     // -------------------------------------------- get set ------------------------------------------------------------
+
+    public Boolean getFollowed() {
+        return Followed;
+    }
+
+    public void setFollowed(Boolean followed) {
+        Followed = followed;
+    }
 
     public Long getId() {
         return id;

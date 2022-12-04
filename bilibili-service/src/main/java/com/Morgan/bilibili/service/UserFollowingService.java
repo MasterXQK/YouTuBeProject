@@ -1,19 +1,15 @@
 package com.Morgan.bilibili.service;
 
 import com.Morgan.bilibili.dao.UserFollowingDao;
-import com.Morgan.bilibili.domain.FollowingGroup;
-import com.Morgan.bilibili.domain.User;
-import com.Morgan.bilibili.domain.UserFollowing;
+import com.Morgan.bilibili.domain.*;
 import com.Morgan.bilibili.domain.constant.UserConstant;
 import com.Morgan.bilibili.domain.exception.ConditionException;
+import com.sun.media.jfxmedia.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Morgan
@@ -30,6 +26,8 @@ public class UserFollowingService {
 
     @Autowired
     FollowingGroupService followingGroupService;
+
+
 
 
     @Transactional
@@ -189,5 +187,27 @@ public class UserFollowingService {
             throw new ConditionException("400", "当前用户ID缺失", "The current user ID is missing!");
         }
         return userFollowingDao.getUserFollowingGroup(userId);
+    }
+
+    public List<UserInfo> checkFollowingStatus(Long userId, PageResult<UserInfo> result) {
+        // 获取用户所有关注
+        List<UserFollowing> userFollowings = userFollowingDao.getFollowingUserIdListByUserId(userId);
+        // 用户关注Id的Set
+        HashSet<Long> followingIdSet = new HashSet<>();
+        for (UserFollowing userFollowing : userFollowings) {
+            followingIdSet.add(userFollowing.getFollowingId());
+        }
+        System.out.println(followingIdSet.toString());
+
+        // 遍历result.getList 看看哪些用户在userId的关注里
+        for (UserInfo userInfo : result.getList()) {
+            userInfo.setFollowed(false);
+
+            if (followingIdSet.contains(userInfo.getUserId())) {
+                // 如果在set里面 说明是userId的关注者 设置为true
+                userInfo.setFollowed(true);
+            }
+        }
+        return result.getList();
     }
 }
