@@ -18,4 +18,9 @@ public class FollowingGroupService {
     public FollowingGroup getById(Long groupId) {
         return followingGroupDao.getById(groupId);
     }
+
+    public FollowingGroup getByName(Long userId, String name) {
+        return followingGroupDao.getByName(userId, name);
+    }
+
 }

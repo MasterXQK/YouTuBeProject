@@ -46,6 +46,40 @@
             followingId = #{followingId}
     </select>
 
+    <insert id="addFollowingGroup" parameterType="com.Morgan.bilibili.domain.FollowingGroup">
+        insert into
+            t_following_group(
+                userId,
+                name,
+                type,
+                createTime
+            ) values (
+                #{userId},
+                #{name},
+                #{type},
+                #{createTime}
+            )
+    </insert>
+
+
+    <update id="updateFollowingGroup" parameterType="com.Morgan.bilibili.domain.FollowingGroup" useGeneratedKeys="true" keyProperty="id">
+        update
+            t_following_group
+        set
+            name = #{name},
+            type = #{type},
+            createTime = #{createTime}
+        where
+            id = #{id}
+    </update>
+
+    <delete id="deleteFollowingGroup">
+        delete from
+            t_following_group
+        where
+            id = #{id}
+    </delete>
+
 
 
 </mapper>

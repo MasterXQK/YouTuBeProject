@@ -1,5 +1,6 @@
 package com.Morgan.bilibili.dao;
 
+import com.Morgan.bilibili.domain.FollowingGroup;
 import com.Morgan.bilibili.domain.UserFollowing;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,5 +21,11 @@ public interface UserFollowingDao {
     List<UserFollowing> getFollowingUserIdListByUserId(Long userId);
 
     List<UserFollowing> getUserFollowingByFollowingId(Long userId);
+
+    Integer addFollowingGroup(FollowingGroup followingGroup);
+
+    Integer updateFollowingGroup(FollowingGroup followingGroup);
+
+    void deleteFollowingGroup(Long groupId);
 }
 

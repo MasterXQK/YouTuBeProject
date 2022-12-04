@@ -1,5 +1,7 @@
 package com.Morgan.bilibili.api;
 
+import com.Morgan.bilibili.api.support.UserSupport;
+import com.Morgan.bilibili.domain.FollowingGroup;
 import com.Morgan.bilibili.domain.JsonResponse;
 import com.Morgan.bilibili.domain.User;
 import com.Morgan.bilibili.domain.UserFollowing;
@@ -17,9 +19,13 @@ import java.util.List;
  */
 @RestController
 public class UserFollowingApi {
+
     @Autowired
     private UserFollowingService userFollowingService;
 
+    // 注入UserSupport
+    @Autowired
+    private UserSupport userSupport;
 
 
     @PostMapping("/addUserFollowing")
@@ -29,16 +35,47 @@ public class UserFollowingApi {
     }
 
     // 按分组获得用户全部关注列表
-    @GetMapping("/UserFollowings/{userId}")
-    public JsonResponse<HashMap<Long, List<User>>> getUserFollowing(@PathVariable Long userId) {
+    @GetMapping("/user-UserFollowings")
+    public JsonResponse<HashMap<Long, List<User>>> getUserFollowing() {
+        Long userId = userSupport.getCurrentUserId();
+        // map , key->groupId, value->List<User>
         HashMap<Long, List<User>> followingMap = userFollowingService.getUserFollowing(userId);
         return new JsonResponse<>(followingMap);
     }
 
-    @GetMapping("/fans/{userId}")
-    public JsonResponse<List<User>> getFans(@PathVariable Long userId) {
+    @GetMapping("/user-fans")
+    public JsonResponse<List<User>> getUserFans() {
+        Long userId = userSupport.getCurrentUserId();
         List<User> fans = userFollowingService.getFans(userId);
         return new JsonResponse<>(fans);
     }
+
+    // 新建用户分组
+    @PostMapping("/user-following-group")
+    public JsonResponse<Integer> addUserFollowingGroup(@RequestBody FollowingGroup followingGroup) {
+        Long userId = userSupport.getCurrentUserId();
+        Integer groupId = userFollowingService.addUserFollowingGroup(userId, followingGroup);
+        return new JsonResponse<>(groupId);
+    }
+
+    // 删除用户分组
+    @DeleteMapping("/user-following-group/{groupId}")
+    public JsonResponse<String> deleteUserFollowingGroup(@PathVariable("groupId") Long groupId) {
+        Long userId = userSupport.getCurrentUserId();
+        userFollowingService.deleteUserFollowingGroup(userId, groupId);
+        return JsonResponse.success();
+    }
+
+
+    // 修改用户分组
+    @PutMapping("/user-following-group")
+    public JsonResponse<String> updateUserFollowingGroup(@RequestBody FollowingGroup followingGroup) {
+        Long userId = userSupport.getCurrentUserId();
+        Integer groupId = userFollowingService.updateUserFollowingGroup(userId, followingGroup);
+        if (groupId == null)
+            return JsonResponse.fail("update failed", "修改失败");
+        return JsonResponse.success(String.valueOf(groupId));
+    }
+
 }
 

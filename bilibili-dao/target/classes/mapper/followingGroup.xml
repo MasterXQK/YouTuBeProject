@@ -14,4 +14,34 @@
             id = #{groupId};
     </select>
 
+
+    <select id="getByName" resultType="com.Morgan.bilibili.domain.FollowingGroup">
+        select
+            *
+        from
+            t_following_group
+        where
+            name = #{name}
+        and
+            userId = #{userId}
+        limit
+            1;
+    </select>
+
+    <select id="getByIdAndUserId" resultType="com.Morgan.bilibili.domain.FollowingGroup">
+        select
+            *
+        from
+            t_following_group
+        where
+            id = '3'
+        and
+            id = #{id}
+        and
+            userId = #{userId}
+        limit
+            1;
+    </select>
+
+
 </mapper>

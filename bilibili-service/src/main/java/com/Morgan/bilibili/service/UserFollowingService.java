@@ -4,7 +4,7 @@ import com.Morgan.bilibili.dao.UserFollowingDao;
 import com.Morgan.bilibili.domain.FollowingGroup;
 import com.Morgan.bilibili.domain.User;
 import com.Morgan.bilibili.domain.UserFollowing;
-import com.Morgan.bilibili.domain.constant.UserFollowingConstant;
+import com.Morgan.bilibili.domain.constant.UserConstant;
 import com.Morgan.bilibili.domain.exception.ConditionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class UserFollowingService {
         // 检查一下是哪个关注分组
         Long groupId = userFollowing.getGroupId();
         if (groupId == null) {
-            userFollowing.setGroupId(UserFollowingConstant.DEFAULT_FOLLOW);
+            userFollowing.setGroupId(UserConstant.DEFAULT_FOLLOW);
         } else {
             // 检查一下分组是否存在
             FollowingGroup followingGroup = followingGroupService.getById(userFollowing.getGroupId());
@@ -95,4 +95,96 @@ public class UserFollowingService {
         List<User> fans = userService.getUserInfoByIdList(userIdList);
         return fans;
     }
+
+    // 新建用户分组
+    public Integer addUserFollowingGroup(Long userId, FollowingGroup followingGroup) {
+        if (followingGroup == null) {
+            throw new ConditionException("400", "数据不能为null", "Data cannot be null!");
+        }
+        if (userId == null) {
+            throw new ConditionException("400", "当前用户ID缺失", "The current user ID is missing!");
+        }
+        if (followingGroup.getName() == null) {
+            throw new ConditionException("400", "分组名不能为空", "Group name cannot be empty!");
+        }
+
+        // 检查一下分组是否存在
+        // 主要检查 userId 及其 groupName
+        FollowingGroup followingGroup1 = followingGroupService.getByName(userId, followingGroup.getName());
+        if (followingGroup1 != null) {
+            throw new ConditionException("400", "分组名已存在!", "Group name already exists!");
+        }
+
+        followingGroup.setUserId(userId);
+        followingGroup.setType(UserConstant.CUSTOM_FOLLOW);
+        followingGroup.setCreateTime(new Date());
+        return userFollowingDao.addFollowingGroup(followingGroup);
+    }
+
+    // 修改用户分组
+    public Integer updateUserFollowingGroup(Long userId, FollowingGroup followingGroup) {
+        if (followingGroup == null) {
+            throw new ConditionException("400", "数据不能为null", "Data cannot be null!");
+        }
+        if (userId == null) {
+            throw new ConditionException("400", "当前用户ID缺失", "The current user ID is missing!");
+        }
+        if (followingGroup.getName() == null) {
+            throw new ConditionException("400", "分组名不能为空", "Group name cannot be empty!");
+        }
+        if (followingGroup.getId() == null) {
+            throw new ConditionException("400", "分组ID不能为空", "Group ID cannot be empty!");
+        }
+        
+
+        // 检查一下该userId下面的分组是否存在 通过groupId去查
+        FollowingGroup dbGroup = followingGroupService.getById(followingGroup.getId());
+        if (dbGroup == null) {
+            throw new ConditionException("400", "分组不存在!", "Group does not exist!");
+        }
+        if (!dbGroup.getType().equals(3)) {
+            throw new ConditionException("400", "系统分组不能修改!", "System groups cannot be modified!");
+        }
+        if (!dbGroup.getUserId().equals(userId)) {
+            throw new ConditionException("400", "该分组不属于当前用户!", "The group does not belong to the current user!");
+        }
+
+
+        // 该userId下面的该分组存在 进行修改
+        followingGroup.setUserId(userId);
+        followingGroup.setType(UserConstant.CUSTOM_FOLLOW);
+        followingGroup.setCreateTime(new Date());
+        return userFollowingDao.updateFollowingGroup(followingGroup);
+    }
+
+    // 删除用户分组
+    public void deleteUserFollowingGroup(Long userId, Long groupId) {
+        if (groupId == null) {
+            throw new ConditionException("400", "分组ID不能为空", "Group ID cannot be empty!");
+        }
+        if (userId == null) {
+            throw new ConditionException("400", "当前用户ID缺失", "The current user ID is missing!");
+        }
+
+        // 检查一下该userId下面的分组是否存在 通过groupId去查
+        FollowingGroup dbGroup = followingGroupService.getById(groupId);
+        if (dbGroup == null) {
+            throw new ConditionException("400", "分组不存在!", "Group does not exist!");
+        }
+        if (!dbGroup.getType().equals("3")) {
+            throw new ConditionException("400", "系统分组不能删除!", "System groups cannot be deleted!");
+        }
+        if (!dbGroup.getUserId().equals(userId)) {
+            throw new ConditionException("400", "该分组不属于当前用户!", "The group does not belong to the current user!");
+        }
+
+        // 该userId下面的该分组存在 进行删除
+        userFollowingDao.deleteFollowingGroup(groupId);
+    }
+
+
+
+
+
+
 }
