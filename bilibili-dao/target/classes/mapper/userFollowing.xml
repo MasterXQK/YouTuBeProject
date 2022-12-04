@@ -80,6 +80,15 @@
             id = #{id}
     </delete>
 
+    <select id="getUserFollowingGroup" parameterType="java.lang.Long" resultType="com.Morgan.bilibili.domain.FollowingGroup">
+        select
+            *
+        from
+            t_following_group
+        where
+            userId = #{userId}
+    </select>
+
 
 
 </mapper>

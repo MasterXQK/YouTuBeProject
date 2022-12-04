@@ -183,8 +183,11 @@ public class UserFollowingService {
     }
 
 
-
-
-
-
+    // 根据用户id获得该用户全部的自定义分组
+    public List<FollowingGroup> getUserFollowingGroup(Long userId) {
+        if (userId == null) {
+            throw new ConditionException("400", "当前用户ID缺失", "The current user ID is missing!");
+        }
+        return userFollowingDao.getUserFollowingGroup(userId);
+    }
 }

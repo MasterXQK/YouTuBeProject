@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/demo.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/followingGroup.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/user.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/userFollowing.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/sql/user.sql" dialect="MySQL" />
   </component>
   <component name="SqlResolveMappings">
+    <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/userFollowing.xml" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;4d6caa47-7b74-4c5f-a0d5-e3ef6d1f09b6&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;bilibili&quot;      }     }    }   }  } }}" />
     <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;4d6caa47-7b74-4c5f-a0d5-e3ef6d1f09b6&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;bilibili&quot;      }     }    }   }  } }}" />
   </component>
 </project>

@@ -77,5 +77,13 @@ public class UserFollowingApi {
         return JsonResponse.success(String.valueOf(groupId));
     }
 
+    // 获得该用户全部分组
+    @GetMapping("/user-following-group")
+    public JsonResponse<List<FollowingGroup>> getUserFollowingGroup() {
+        Long userId = userSupport.getCurrentUserId();
+        List<FollowingGroup> followingGroups = userFollowingService.getUserFollowingGroup(userId);
+        return new JsonResponse<>(followingGroups);
+    }
+
 }
 
