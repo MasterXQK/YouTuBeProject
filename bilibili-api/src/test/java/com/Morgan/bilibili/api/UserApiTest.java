@@ -1,8 +1,10 @@
 package com.Morgan.bilibili.api;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import com.Morgan.BiliBiliApp;
 import com.Morgan.bilibili.domain.JsonResponse;
 import com.Morgan.bilibili.domain.PageResult;
+import com.Morgan.bilibili.domain.User;
 import com.Morgan.bilibili.domain.UserInfo;
 import com.Morgan.bilibili.service.UserService;
 import com.alibaba.fastjson.JSON;
@@ -19,6 +21,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -42,8 +45,8 @@ import java.util.Date;
 class UserApiTest {
 
     // mock对象
-    @Autowired
-    private static MockMvc mockMvc;
+//    @Autowired
+//    private static MockMvc mockMvc;
 
     @Autowired
     private UserApi userApi;
@@ -55,12 +58,13 @@ class UserApiTest {
     @BeforeAll
     public static void init() {
         System.out.println("mock init");
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserApi()).build();
+//        mockMvc = MockMvcBuilders.standaloneSetup(new UserApi()).build();
     }
 
     // 用userService去测试getUserInfo()这个方法
 
 
+    // 测试service层的方法
     @Test
     public void getUserInfo() throws Exception {
         JSONObject jsonObject = new JSONObject();
@@ -68,21 +72,13 @@ class UserApiTest {
         jsonObject.put("size", 10);
         jsonObject.put("nick", "x");
 
-        JsonResponse<PageResult<UserInfo>> x = userApi.PageListUserInfos(1, 10, "x");
-        for (UserInfo userInfo : x.getData().getList()) {
-            System.out.println(userInfo.toString());
-        }
 
-//        PageResult<UserInfo> userInfoPageResult = userService.PageListUserInfos(jsonObject);
-//        for (UserInfo userInfo : userInfoPageResult.getList()) {
-//            log.debug("xqk UserInfo -> " + userInfo.toString());
-//            System.out.println("xqk UserInfo -> " + userInfo);
-//        }
+        PageResult<UserInfo> userInfoPageResult = userService.PageListUserInfos(jsonObject);
+        for (UserInfo userInfo : userInfoPageResult.getList()) {
+            System.out.println("xqk UserInfo -> " + userInfo.toString());
+        }
 
 
     }
-
-
-
 
 }

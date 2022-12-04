@@ -17,6 +17,23 @@ public class UserInfo {
     private Date updateTime;
 
     private Boolean Followed;
+
+    // -------------------------------------------- toString ------------------------------------------------------------
+    // 重写toString()
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", nick='" + nick + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", sign='" + sign + '\'' +
+                ", birth='" + birth + '\'' +
+                ", createTime='" + createTime + '\'';
+    }
+
+
+
     // -------------------------------------------- get set ------------------------------------------------------------
 
     public Boolean getFollowed() {

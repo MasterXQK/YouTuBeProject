@@ -85,6 +85,7 @@ public class UserApi {
         return JsonResponse.success();
     }
 
+    // 根据nickName模糊查询 + 在关注列表里分页展示
     @GetMapping("/user-infos")
     public JsonResponse<PageResult<UserInfo>> PageListUserInfos(@RequestParam Integer number, @RequestParam Integer size,
                                                                 @RequestParam String nick) {
