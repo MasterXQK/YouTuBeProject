@@ -20,4 +20,41 @@
                  )
     </insert>
 
+    <select id="getUserMomentById" resultType="com.Morgan.bilibili.domain.UserMoment">
+        select
+            *
+        from
+             t_user_moments
+        where
+            userId = #{userId}
+        and
+            id = #{id}
+        limit
+            1;
+    </select>
+
+    <delete id="deleteUserMoments">
+        delete from
+            t_user_moments
+        where
+            userId = #{userId}
+        and
+            id = #{id}
+    </delete>
+
+    <select id="batchGetUserMoments" resultType="com.Morgan.bilibili.domain.UserMoment">
+        select
+            *
+        from
+            t_user_moments
+        <where>
+            <foreach item="item" index="index" collection="list"
+                     open="userId in (" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+        order by createTime desc;
+
+    </select>
+
 </mapper>
