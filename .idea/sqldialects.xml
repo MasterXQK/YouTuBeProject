@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/followingGroup.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/user.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/userFollowing.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/mapper/userMoments.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/bilibili-dao/src/main/resources/sql/user.sql" dialect="MySQL" />
   </component>
   <component name="SqlResolveMappings">
