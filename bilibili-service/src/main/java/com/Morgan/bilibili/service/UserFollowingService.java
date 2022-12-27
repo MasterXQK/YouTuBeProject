@@ -5,6 +5,7 @@ import com.Morgan.bilibili.domain.*;
 import com.Morgan.bilibili.domain.constant.UserConstant;
 import com.Morgan.bilibili.domain.exception.ConditionException;
 import com.sun.media.jfxmedia.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.*;
  * @create 2022-11-03-22:45
  */
 @Service
+@Slf4j
 public class UserFollowingService {
 
     @Autowired

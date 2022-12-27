@@ -55,5 +55,14 @@ public class UserMomentsApi {
         return JsonResponse.success();
     }
 
+    // 获取用户自己的动态
+    @GetMapping("/user-moments/{id}")
+    public JsonResponse<UserMoment> getUserMoments(@PathVariable("id") Long id) throws Exception {
+        Long userId = userSupport.getCurrentUserId();
+//        UserMoment userMoment = userMomentsService.getUserMoments(userId, id);
+//        return new JsonResponse<>(userMoment);
+        return null;
+    }
+
 
 }

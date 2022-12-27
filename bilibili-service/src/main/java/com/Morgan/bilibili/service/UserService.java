@@ -28,6 +28,10 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    public void mqAddUser(User user) {
+        userDao.addUser(user);
+    }
+
     public void addUser(User user) {
         /*
          校验字段是否正确
