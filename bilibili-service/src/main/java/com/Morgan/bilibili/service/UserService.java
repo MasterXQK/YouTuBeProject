@@ -10,9 +10,13 @@ import com.Morgan.bilibili.service.util.MD5Util;
 import com.Morgan.bilibili.service.util.RSAUtil;
 import com.Morgan.bilibili.service.util.TokenUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.mysql.cj.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +27,7 @@ import java.util.List;
  * @create 2022-10-17-14:37
  */
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired

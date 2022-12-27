@@ -146,6 +146,14 @@
             <artifactId>jul-to-slf4j</artifactId>
             <version>1.7.33</version>
         </dependency>
+
+        <!--Mybatis Plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
     </dependencies>
 
     <modules>

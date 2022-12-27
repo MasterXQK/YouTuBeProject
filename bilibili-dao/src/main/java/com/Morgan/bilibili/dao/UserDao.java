@@ -3,6 +3,7 @@ package com.Morgan.bilibili.dao;
 import com.Morgan.bilibili.domain.User;
 import com.Morgan.bilibili.domain.UserInfo;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

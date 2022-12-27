@@ -31,8 +31,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Morgan
@@ -63,6 +65,7 @@ class UserApiTest {
 
     // 用userService去测试getUserInfo()这个方法
 
+    @Autowired
 
     // 测试service层的方法
     @Test

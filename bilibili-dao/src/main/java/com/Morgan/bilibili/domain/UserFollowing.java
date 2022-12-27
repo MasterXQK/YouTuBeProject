@@ -1,11 +1,16 @@
 package com.Morgan.bilibili.domain;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.util.Date;
 
 /**
  * @author Morgan
  * @create 2022-11-03-22:39
  */
+@Data
+@TableName("t_user_following")
 // refer t_user_following
 public class UserFollowing {
     private Long id;
@@ -17,44 +22,4 @@ public class UserFollowing {
     private Long groupId;
 
     private Date createTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getFollowingId() {
-        return followingId;
-    }
-
-    public void setFollowingId(Long followingId) {
-        this.followingId = followingId;
-    }
-
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

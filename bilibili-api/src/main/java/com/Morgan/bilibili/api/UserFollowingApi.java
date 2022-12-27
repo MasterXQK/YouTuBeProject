@@ -28,6 +28,11 @@ public class UserFollowingApi {
     private UserSupport userSupport;
 
 
+    @GetMapping("/test-mybatis-plus")
+    public JsonResponse<List<UserFollowing>> testMybatisPlus(@RequestParam("ids") List<Long> ids) {
+        return new JsonResponse<>(userFollowingService.getUserFollowingByIds(ids));
+    }
+
     @PostMapping("/addUserFollowing")
     public JsonResponse<String> addUserFollowing(@RequestBody UserFollowing userFollowing) {
         userFollowingService.addUserFollowing(userFollowing);

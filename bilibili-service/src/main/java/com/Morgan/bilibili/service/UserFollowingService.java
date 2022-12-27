@@ -4,11 +4,13 @@ import com.Morgan.bilibili.dao.UserFollowingDao;
 import com.Morgan.bilibili.domain.*;
 import com.Morgan.bilibili.domain.constant.UserConstant;
 import com.Morgan.bilibili.domain.exception.ConditionException;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sun.media.jfxmedia.logging.Logger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -30,7 +32,12 @@ public class UserFollowingService {
     FollowingGroupService followingGroupService;
 
 
-
+    public List<UserFollowing> getUserFollowingByIds(List<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return new ArrayList<>();
+        }
+        return userFollowingDao.selectList(new LambdaQueryWrapper<UserFollowing>().in(UserFollowing::getId, ids));
+    }
 
     @Transactional
     public void addUserFollowing(UserFollowing userFollowing) {
